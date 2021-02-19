@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.zadanie_gwiazdka.model.Address;
+import pl.sda.zadanie_gwiazdka.model.Data;
 import pl.sda.zadanie_gwiazdka.model.User;
 
 import java.util.ArrayList;
@@ -14,31 +15,30 @@ import java.util.List;
 @RestController
 @RequestMapping("${address.path}")
 public class AddressController {
-    List<User> listOfUsers = new ArrayList<>();
-    List<Address> listOfAddresses = new ArrayList<>();
-
+Data data=new Data();
 
     @GetMapping
     public ResponseEntity<List<Address>> getAllAddresses() {
-        return ResponseEntity.ok(listOfAddresses);
+        return ResponseEntity.ok(data.listOfAddresses);
     }
 
 
     @GetMapping("${address.path.get}")
     public ResponseEntity<Address> getAddress(@PathVariable int id) {
-        return ResponseEntity.ok(listOfAddresses.get(id));
+        return ResponseEntity.ok(data.listOfAddresses.get(id));
     }
 
 
     @PostMapping("${address.path.post}")
     public void createAddress(
             @RequestParam(value = "city") String city,
-            @RequestParam(value = "zipCode") String zipCode,
             @RequestParam(value = "streetName") String streetName,
-            @RequestParam(value = "streetNumber") Long streetNumber) {
-        Address address = new Address(city, zipCode, streetName, streetNumber);
-        address.setId((long) listOfAddresses.size() + 1);
-        listOfAddresses.add(address);
+            @RequestParam(value = "streetNumber") Integer streetNumber) {
+        Address address = new Address(city, streetName, streetNumber);
+        address.setId((long) data.listOfAddresses.size());
+        address.setUsersList(new ArrayList<>());
+        data.listOfAddresses.add(address);
+        log.info("ListOfAddressesSize: "+ data.listOfAddresses.size());
     }
 
     //TODO: dodać metody addUserToAddress(), addAddressToUser(), dodać POSTY na user i address,

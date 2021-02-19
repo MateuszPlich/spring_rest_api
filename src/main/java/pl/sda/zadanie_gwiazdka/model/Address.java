@@ -12,21 +12,19 @@ public class Address {
 
     private Long id;
     private String city;
-    private String zipCode;
     private String streetName;
-    private Long streetNumber;
-    private List<User> usersList;
+    private Integer streetNumber;
+    private List<Long> usersList;
 
-    public Address(String city, String zipCode, String streetName, Long streetNumber) {
+    public Address(String city, String streetName, Integer streetNumber) {
 
         this.city = city;
-        this.zipCode = zipCode;
         this.streetName = streetName;
         this.streetNumber = streetNumber;
     }
 
     public void addUser(User user){
-        usersList.add(user);
+        usersList.add(user.getId());
     }
 
 

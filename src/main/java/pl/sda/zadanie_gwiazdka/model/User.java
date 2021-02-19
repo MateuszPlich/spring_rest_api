@@ -13,16 +13,14 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-    private List<Address> addressesList;
+    private List<Long> addressesList;
 
     public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
 
-    public void addAddress(Address address){
-    addressesList.add(address);
-}
-
-
+    public void addAddress(Address address) {
+        addressesList.add(address.getId());
+    }
 }
